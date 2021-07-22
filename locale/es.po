@@ -1,0 +1,15 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:stock.location,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "model:ir.message,text:msg_wrong_company"
+msgid "The company of \"%(location)s\" is not valid."
+msgstr "La empresa de \"%(location)s\" no es válida"
+
+msgctxt "model:ir.rule.group,name:rule_group_location_company"
+msgid "User in company"
+msgstr "Usuario en la empresa"
