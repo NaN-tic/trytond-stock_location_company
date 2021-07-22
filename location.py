@@ -28,9 +28,9 @@ class Location(metaclass=PoolMeta):
 
     @classmethod
     def validate(cls, locations):
-        cls.validate(locations)
+        super().validate(locations)
         for location in locations:
-            location.chack_company()
+            location.check_company()
 
     def check_company(self):
         for child in self.childs:
