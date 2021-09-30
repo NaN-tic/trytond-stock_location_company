@@ -33,8 +33,13 @@ class Location(metaclass=PoolMeta):
             location.check_company()
 
     def check_company(self):
+        if (self.company.id != Transaction().context.get('company')
+                and self.company is not None):
+            raise UserError(gettext(
+                    'stock_location_company.msg_wrong_company',
+                    location=self.rec_name))
         for child in self.childs:
             if child.company != self.company:
                 raise UserError(gettext(
                     'stock_location_company.msg_wrong_company',
-                    location=self.recname))
+                    location=self.rec_name))
