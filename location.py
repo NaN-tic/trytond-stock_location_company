@@ -4,7 +4,7 @@ from trytond.transaction import Transaction
 from trytond.pyson import Eval
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
-from trytond.pyson import If, Eval
+from trytond.pyson import If
 
 
 class Location(metaclass=PoolMeta):
