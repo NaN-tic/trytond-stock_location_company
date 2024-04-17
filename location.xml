@@ -8,7 +8,7 @@
 
         <record model="ir.rule.group" id="rule_group_location_company">
             <field name="name">User in company</field>
-            <field name="model" search="[('model', '=', 'stock.location')]"/>
+            <field name="model">stock.location</field>
             <field name="global_p" eval="True"/>
         </record>
         <record model="ir.rule" id="rule_group_location_company1">
