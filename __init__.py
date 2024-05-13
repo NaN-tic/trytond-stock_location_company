@@ -3,13 +3,11 @@
 # the full copyright notices and license terms.
 from trytond.pool import Pool
 from . import location
+from . import user
 
 
 def register():
     Pool.register(
         location.Location,
+        user.User,
         module='stock_location_company', type_='model')
-    Pool.register(
-        module='stock_location_company', type_='wizard')
-    Pool.register(
-        module='stock_location_company', type_='report')
