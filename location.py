@@ -3,7 +3,7 @@ from trytond.model import fields
 from trytond.transaction import Transaction
 from trytond.pyson import Eval
 from trytond.i18n import gettext
-from trytond.exceptions import UserError
+from trytond.model.exceptions import ValidationError
 from trytond.pyson import If
 
 
@@ -35,11 +35,11 @@ class Location(metaclass=PoolMeta):
     def check_company(self):
         if (self.company is not None and
                 self.company.id != Transaction().context.get('company')):
-            raise UserError(gettext(
+            raise ValidationError(gettext(
                     'stock_location_company.msg_wrong_company',
                     location=self.rec_name))
         for child in self.childs:
             if child.company != self.company:
-                raise UserError(gettext(
+                raise ValidationError(gettext(
                     'stock_location_company.msg_wrong_company',
                     location=self.rec_name))
