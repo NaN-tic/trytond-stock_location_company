@@ -19,7 +19,7 @@ class Location(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super().__setup__()
-        cls.parent.domain = [('company', '=', Eval('company'))]
+        cls.parent.domain = [('company', '=', Eval('company', -1))]
         cls.parent.depends = ['company']
 
     @classmethod
