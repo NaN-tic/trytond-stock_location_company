@@ -10,4 +10,5 @@ def register():
     Pool.register(
         location.Location,
         user.User,
+        user.UserWarehouse,
         module='stock_location_company', type_='model')
