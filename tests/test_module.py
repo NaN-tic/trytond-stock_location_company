@@ -90,9 +90,38 @@ class StockLocationCompanyTestCase(CompanyTestMixin, ModuleTestCase):
                 user1.warehouse = warehouse
                 user1.save()
 
-                # when on_change_company, set new warehouse from the company
+                # A configured warehouse is restored when returning to a
+                # company after switching to another one.
                 user1.company = company2
                 user1.on_change_company()
                 self.assertEqual(user1.warehouse.company, user1.company)
+                user1.warehouse = warehouse2
+                user1.save()
+                UserWarehouse = pool.get('res.user-stock.location.company')
+                user_warehouses = UserWarehouse.search([
+                        ('user', '=', user1.id),
+                        ])
+                self.assertEqual(
+                    {(w.company.id, w.warehouse.id) for w in user_warehouses}, {
+                        (company1.id, warehouse.id),
+                        (company2.id, warehouse2.id),
+                        })
+
+                user1.company = company1
+                user1.on_change_company()
+                self.assertEqual(user1.warehouse, warehouse)
+
+                # Preferences are used to initialize the context at login.
+                # They must return the warehouse from the selected company,
+                # not the warehouse stored for the last selected company.
+                User.set_preferences({'company': company1.id})
+                with transaction.reset_context():
+                    preferences = User.get_preferences(context_only=True)
+                self.assertEqual(preferences['warehouse'], warehouse.id)
+
+                User.set_preferences({'company': company2.id})
+                with transaction.reset_context():
+                    preferences = User.get_preferences(context_only=True)
+                self.assertEqual(preferences['warehouse'], warehouse2.id)
 
 del ModuleTestCase
