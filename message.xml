@@ -3,5 +3,8 @@
         <record model="ir.message" id="msg_wrong_company">
             <field name="text">The company of "%(location)s" is not valid.</field>
         </record>
+        <record model="ir.message" id="msg_user_company_warehouse_unique">
+            <field name="text">A warehouse is already configured for this user and company.</field>
+        </record>
     </data>
 </tryton>

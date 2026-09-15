@@ -1,11 +1,39 @@
 #
+# SPDX-FileCopyrightText: 2026 juanjo <juanjo.garcia@nan-tic.com>
 msgid ""
-msgstr "Content-Type: text/plain; charset=utf-8\n"
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: juanjo <juanjo.garcia@nan-tic.com>\n"
+"PO-Revision-Date: 2026-09-02 13:03+0000\n"
+"Project-Id-Version: \n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca_ES\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.0\n"
+
+msgctxt "field:res.user-stock.location.company,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:res.user-stock.location.company,user:"
+msgid "User"
+msgstr "Usuari"
+
+msgctxt "field:res.user-stock.location.company,warehouse:"
+msgid "Warehouse"
+msgstr "Magatzem"
 
 msgctxt "field:stock.location,company:"
 msgid "Company"
 msgstr "Empresa"
 
+msgctxt "model:ir.message,text:msg_user_company_warehouse_unique"
+msgid "A warehouse is already configured for this user and company."
+msgstr "Ja hi ha un magatzem configurat per a aquest usuari i empresa."
+
+#, python-format
 msgctxt "model:ir.message,text:msg_wrong_company"
 msgid "The company of \"%(location)s\" is not valid."
 msgstr "La empresa a \"%(location)s\" no es vàlida"
@@ -13,3 +41,7 @@ msgstr "La empresa a \"%(location)s\" no es vàlida"
 msgctxt "model:ir.rule.group,name:rule_group_location_company"
 msgid "User in company"
 msgstr "Usuari a l'empresa"
+
+msgctxt "model:res.user-stock.location.company,string:"
+msgid "User - Stock Location Company"
+msgstr "Usuari - Empresa d'ubicació d'estoc"
