@@ -69,6 +69,10 @@ class User(metaclass=PoolMeta):
             else:
                 write_args.extend((users, values))
 
+        if not write_args:
+            # if 'company' and 'warehouse' are specified, but there are no
+            # users, write_args may be empty
+            return
         super().write(*write_args)
         actions = iter(write_args)
         for users, values in zip(actions, actions):
