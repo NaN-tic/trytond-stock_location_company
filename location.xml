@@ -6,6 +6,33 @@
             <field name="name">location_form</field>
         </record>
 
+        <record model="ir.ui.view" id="location_view_tree">
+            <field name="model">stock.location</field>
+            <field name="inherit" ref="stock.location_view_tree"/>
+            <field name="name">location_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="location_view_list">
+            <field name="model">stock.location</field>
+            <field name="inherit" ref="stock.location_view_list"/>
+            <field name="name">location_tree</field>
+        </record>
+        <record model="ir.ui.view" id="location_view_list_warehouse">
+            <field name="model">stock.location</field>
+            <field name="inherit" ref="stock.location_view_list_warehouse"/>
+            <field name="name">location_tree</field>
+        </record>
+        <record model="ir.ui.view" id="location_quantity_view_tree">
+            <field name="model">stock.location</field>
+            <field name="inherit" ref="stock.location_quantity_view_tree"/>
+            <field name="name">location_tree</field>
+        </record>
+        <record model="ir.ui.view" id="location_quantity_view_list">
+            <field name="model">stock.location</field>
+            <field name="inherit" ref="stock.location_quantity_view_list"/>
+            <field name="name">location_tree</field>
+        </record>
+
         <record model="ir.rule.group" id="rule_group_location_company">
             <field name="name">User in company</field>
             <field name="model">stock.location</field>
