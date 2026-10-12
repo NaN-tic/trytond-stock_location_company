@@ -1,0 +1,5 @@
+<data>
+    <xpath expr="/tree" position="inside">
+        <field name="company" optional="1"/>
+    </xpath>
+</data>

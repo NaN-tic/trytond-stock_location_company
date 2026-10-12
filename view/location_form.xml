@@ -1,5 +1,5 @@
 <data>
-    <xpath expr="/form" position="inside">
+    <xpath expr="//label[@name='address']" position="before">
         <label name="company"/>
         <field name="company"/>
     </xpath>
