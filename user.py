@@ -3,7 +3,7 @@
 # the full copyright notices and license terms.
 from trytond.model import ModelSQL, Unique, fields
 from trytond.pool import Pool, PoolMeta
-from trytond.transaction import Transaction
+from trytond.transaction import Transaction, without_check_access
 from trytond.pyson import Eval
 
 
@@ -15,6 +15,46 @@ class User(metaclass=PoolMeta):
         super(User, cls).__setup__()
         cls.warehouse.domain += [('company', '=', Eval('company', -1))]
         cls.warehouse.depends.add('company')
+
+    @classmethod
+    def read(cls, ids, fields_names):
+        pool = Pool()
+        ModelAccess = pool.get('ir.model.access')
+        Location = pool.get('stock.location')
+        transaction = Transaction()
+        if (not fields_names or 'warehouse.rec_name' not in fields_names
+                or not transaction.check_access
+                or not ModelAccess.check(
+                    cls.__name__, 'write', raise_exception=False)):
+            return super().read(ids, fields_names)
+
+        # Read the users with normal access checks before resolving just the
+        # display name of their assigned warehouse across company boundaries.
+        names = [n for n in fields_names if n != 'warehouse.rec_name']
+        if 'warehouse' not in names:
+            names.append('warehouse')
+        result = super().read(ids, names)
+        warehouse_ids = {r['warehouse'] for r in result if r['warehouse']}
+        context_ids = {
+            r['warehouse'] for r in result
+            if r['id'] == transaction.user and r['warehouse']
+            and transaction.context.get('warehouse')}
+        # stock.User.read may replace the current user's warehouse with a
+        # client-supplied context value. Such a value must pass normal checks.
+        warehouses = Location.read(list(context_ids), ['rec_name'])
+        with without_check_access():
+            warehouses += Location.read(
+                list(warehouse_ids - context_ids), ['rec_name'])
+        warehouses = {w['id']: w for w in warehouses}
+        for row in result:
+            warehouse = row['warehouse']
+            if warehouse:
+                row.setdefault('warehouse.', {}).update(warehouses[warehouse])
+            else:
+                row['warehouse.'] = None
+            if 'warehouse' not in fields_names:
+                del row['warehouse']
+        return result
 
     @fields.depends('warehouse')
     def on_change_company(self):
