@@ -163,6 +163,7 @@ class User(metaclass=PoolMeta):
 class UserWarehouse(ModelSQL):
     'User - Company - Warehouse'
     __name__ = 'res.user-stock.location.company'
+    _log = False
 
     user = fields.Many2One('res.user', 'User', ondelete='CASCADE', required=True)
     company = fields.Many2One(
